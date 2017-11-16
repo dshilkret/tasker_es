@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <css/>
+        <draft>false</draft>
+        <id>doc_ds_form_v1_pg</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-16 14:21:29</sys_created_on>
+        <sys_id>e14516d44f6a030099f1b2718110c723</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>doc_ds_form_v1_pg</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sp_page_e14516d44f6a030099f1b2718110c723</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-16 14:21:29</sys_updated_on>
+        <title>Doc_DS_Form_v1 - Test Page</title>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=e14516d44f6a030099f1b2718110c723"/>
+</record_update>

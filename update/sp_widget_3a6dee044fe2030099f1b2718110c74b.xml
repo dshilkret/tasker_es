@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[
+
+function($scope,$rootScope,$timeout) {
+  /* widget controller */
+  var c = this;
+ 
+  //broadcast the selection when ever cliked on each incident
+		$scope.clickButton = function(action) {
+		var obj= {
+			action: action
+			
+			
+		};
+				$rootScope.$broadcast('customEvent', obj);
+	}
+ 
+  $scope.selectItem= function(incidentObj){
+      
+				c.selectedIncident = incidentObj;
+				$rootScope.$broadcast('showIncidentDetails', incidentObj);
+
+				};
+   
+}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>button
+{
+visibility: hidden;
+}
+#DIV_1 {
+    box-sizing: border-box;
+    color: rgb(52, 61, 71);
+    height: 31.1111px;
+    text-decoration: none solid rgb(52, 61, 71);
+    text-size-adjust: 100%;
+    text-overflow: ellipsis;
+    width: 1153.58px;
+    column-rule-color: rgb(52, 61, 71);
+    perspective-origin: 576.788px 15.5556px;
+    transform-origin: 576.788px 15.5556px;
+    caret-color: rgb(52, 61, 71);
+    border: 0px none rgb(52, 61, 71);
+    font: normal normal normal normal 13px / 18.5714px SourceSansPro, "Helvetica Neue", Arial;
+    outline: rgb(52, 61, 71) none 0px;
+    overflow: hidden;
+}/*#DIV_1*/
+
+#A_2 {
+    box-sizing: border-box;
+    color: rgb(39, 142, 252);
+    cursor: pointer;
+    display: inline-block;
+    height: 30.9896px;
+    text-align: center;
+    text-decoration: none solid rgb(39, 142, 252);
+    text-size-adjust: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 30.9896px;
+    column-rule-color: rgb(39, 142, 252);
+    perspective-origin: 15.4861px 15.4861px;
+    transform-origin: 15.4861px 15.4861px;
+    user-select: none;
+    caret-color: rgb(39, 142, 252);
+    border: 1.11111px solid rgba(0, 0, 0, 0);
+    border-radius: 3px 3px 3px 3px;
+    font: normal normal normal normal 20px / 20px SourceSansPro, "Helvetica Neue", Arial;
+    margin: 0px 5px 0px 4px;
+    outline: rgb(39, 142, 252) none 0px;
+}/*#A_2*/
+
+#A_2:before {
+    box-sizing: border-box;
+    color: rgb(39, 142, 252);
+    content: '""';
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    speak: none;
+    text-align: center;
+    text-decoration: none solid rgb(39, 142, 252);
+    text-size-adjust: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 20px;
+    column-rule-color: rgb(39, 142, 252);
+    perspective-origin: 10px 10px;
+    transform-origin: 10px 10px;
+    user-select: none;
+    caret-color: rgb(39, 142, 252);
+    border: 0px none rgb(39, 142, 252);
+    font: normal normal normal normal 20px / 20px retina_icons;
+    outline: rgb(39, 142, 252) none 0px;
+}/*#A_2:before*/
+
+#SPAN_3 {
+    bottom: 853.785px;
+    box-sizing: border-box;
+    clip: rect(0px 0px 0px 0px);
+    color: rgb(39, 142, 252);
+    cursor: pointer;
+    display: block;
+    height: 0.989583px;
+    left: 35.4688px;
+    position: absolute;
+    right: 1120.09px;
+    text-align: center;
+    text-decoration: none solid rgb(39, 142, 252);
+    text-size-adjust: 100%;
+    top: 56.0938px;
+    white-space: nowrap;
+    width: 11.9792px;
+    column-rule-color: rgb(39, 142, 252);
+    perspective-origin: 5.98958px 0.486111px;
+    transform-origin: 5.98958px 0.486111px;
+    user-select: none;
+    caret-color: rgb(39, 142, 252);
+    border: 0px none rgb(39, 142, 252);
+    font: normal normal normal normal 20px / 20px SourceSansPro, "Helvetica Neue", Arial;
+    margin: -1px;
+    outline: rgb(39, 142, 252) none 0px;
+    overflow: hidden;
+    padding: 1px 6px 0px;
+}/*#SPAN_3*/
+
+#SPAN_4 {
+    box-sizing: border-box;
+    color: rgb(52, 61, 71);
+    text-decoration: none solid rgb(52, 61, 71);
+    text-size-adjust: 100%;
+    column-rule-color: rgb(52, 61, 71);
+    caret-color: rgb(52, 61, 71);
+    border: 0px none rgb(52, 61, 71);
+    font: normal normal normal normal 13px / 18.5714px SourceSansPro, "Helvetica Neue", Arial;
+    outline: rgb(52, 61, 71) none 0px;
+    padding: 1px 6px 0px;
+}/*#SPAN_4*/
+
+#A_5, #B_7, #A_9, #B_11 {
+    box-sizing: border-box;
+    color: rgb(39, 142, 252);
+    cursor: pointer;
+    text-decoration: none solid rgb(39, 142, 252);
+    text-size-adjust: 100%;
+    column-rule-color: rgb(39, 142, 252);
+    user-select: none;
+    caret-color: rgb(39, 142, 252);
+    border: 0px none rgb(39, 142, 252);
+    font: normal normal normal normal 13px / 18.5714px SourceSansPro, "Helvetica Neue", Arial;
+    outline: rgb(39, 142, 252) none 0px;
+}/*#A_5, #B_7, #A_9, #B_11*/
+
+#SPAN_6 {
+    bottom: 854.896px;
+    box-sizing: border-box;
+    clip: rect(0px 0px 0px 0px);
+    color: rgb(39, 142, 252);
+    cursor: pointer;
+    display: block;
+    height: 0.989583px;
+    left: 51.5278px;
+    position: absolute;
+    right: 1104.03px;
+    text-decoration: none solid rgb(39, 142, 252);
+    text-size-adjust: 100%;
+    top: 54.9826px;
+    width: 11.9792px;
+    column-rule-color: rgb(39, 142, 252);
+    perspective-origin: 5.98958px 0.486111px;
+    transform-origin: 5.98958px 0.486111px;
+    user-select: none;
+    caret-color: rgb(39, 142, 252);
+    border: 0px none rgb(39, 142, 252);
+    font: normal normal normal normal 13px / 18.5714px SourceSansPro, "Helvetica Neue", Arial;
+    margin: -1px;
+    outline: rgb(39, 142, 252) none 0px;
+    overflow: hidden;
+    padding: 1px 6px 0px;
+}/*#SPAN_6*/
+
+#A_8 {
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    text-decoration: none solid rgb(0, 0, 0);
+    text-size-adjust: 100%;
+    column-rule-color: rgb(0, 0, 0);
+    caret-color: rgb(0, 0, 0);
+    border: 0px none rgb(0, 0, 0);
+    font: normal normal normal normal 13px / 18.5714px SourceSansPro, "Helvetica Neue", Arial;
+    margin: 0px 2px;
+    outline: rgb(0, 0, 0) none 0px;
+}/*#A_8*/
+
+#SPAN_10 {
+    bottom: 854.896px;
+    box-sizing: border-box;
+    clip: rect(0px 0px 0px 0px);
+    color: rgb(39, 142, 252);
+    cursor: pointer;
+    display: block;
+    height: 0.989583px;
+    left: 75.6771px;
+    position: absolute;
+    right: 1079.88px;
+    text-decoration: none solid rgb(39, 142, 252);
+    text-size-adjust: 100%;
+    top: 54.9826px;
+    width: 11.9792px;
+    column-rule-color: rgb(39, 142, 252);
+    perspective-origin: 5.98958px 0.486111px;
+    transform-origin: 5.98958px 0.486111px;
+    user-select: none;
+    caret-color: rgb(39, 142, 252);
+    border: 0px none rgb(39, 142, 252);
+    font: normal normal normal normal 13px / 18.5714px SourceSansPro, "Helvetica Neue", Arial;
+    margin: -1px;
+    outline: rgb(39, 142, 252) none 0px;
+    overflow: hidden;
+    padding: 1px 6px 0px;
+}/*#SPAN_10*/
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>listclick_v1</id>
+        <internal>false</internal>
+        <link/>
+        <name>ListClick_v1</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+ 
+    data.incidents = [];
+   
+    var gr  = new GlideRecord('incident');
+    gr.query();
+   
+    while(gr.next()){
+       
+        item = {};
+        item.incidentno = gr.getValue('number');
+        item.openeddate = gr.getValue('opened_at');
+        item.cat        = gr.getValue('catgory');
+        item.cmdb_ci    = gr.getDisplayValue('cmdb_ci');
+        item.asgnGroup  = gr.getDisplayValue('assignment_group');
+        item.asgnTo     = gr.getDisplayValue('assigned_to');
+        item.impact     = gr.getValue('impact');
+        item.shrtDesc   = gr.getValue('short_description');
+       
+        data.incidents.push(item);
+    }
+   
+})();
+
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-15 21:28:29</sys_created_on>
+        <sys_id>3a6dee044fe2030099f1b2718110c74b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ListClick_v1</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sp_widget_3a6dee044fe2030099f1b2718110c74b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-15 21:28:29</sys_updated_on>
+        <template><![CDATA[
+  <button class="btn btn-default" ng-click="c.clickButton('Cancel')">Cancel</button>
+  <button class="btn btn-primary" ng-click="c.clickButton('Submit')">Submit</button>
+ 
+
+
+	<div class="row">
+		<div class="col-sm-12">
+      
+	<div class="row">
+		<div class="col-sm-12">
+<div class="widgetone">
+  <h1>INCIDENT LIST TABLE</h1>
+  
+  <table class="rwd-table">
+    <tr >
+      <th>INCIDENT</th>
+      
+      <!--<th>IMPACT</th> -->
+      
+      <th>CONFIGURATION ITEM</th>
+      <th>SHORT DESCRIPTION</th>
+      
+      <th>ASSIGNED TO</th>
+      <th>OPENED DATE</th>
+ 
+    </tr>
+    
+    <tr ng-repeat="item in c.data.incidents"  ng-click="selectItem(item);clickButton('Submit')">
+      <td data-th="INCIDENT NO">{{item.incidentno}}</td>
+      
+      <!--<td data-th="IMPACT">{{item.impact}}</td> -->
+      
+      <td data-th="CONFIGURATION ITEM">{{item.cmdb_ci}}</td>
+      <td data-th="SHORT DESCRIPTION">{{item.shrtDesc}}</td>
+      
+      <td data-th="ASSIGNED TO">{{item.asgnTo}}</td>
+      <td data-th="OPENED DATE">{{item.openeddate}}</td>
+    </tr>
+  </table>
+
+
+	
+</div> 
+]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance_table">
+    <sp_instance_table action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field/>
+        <field_list/>
+        <filter/>
+        <glyph>bolt</glyph>
+        <id/>
+        <maximum_entries>20</maximum_entries>
+        <order>0</order>
+        <order_by/>
+        <order_direction>asc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">5fa399374f92030099f1b2718110c77c</sp_column>
+        <sp_page/>
+        <sp_widget display_value="Item View from Data Instance WIdget v2">6d85f7f34f95830099f1b2718110c77f</sp_widget>
+        <sys_class_name>sp_instance_table</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-14 20:17:55</sys_created_on>
+        <sys_id>1fa399374f92030099f1b2718110c77e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Elastic Search Incident</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sp_instance_table_1fa399374f92030099f1b2718110c77e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-14 20:17:55</sys_updated_on>
+        <table>incident</table>
+        <title>Elastic Search Incident</title>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_table>
+    <sys_translated_text action="delete_multiple" query="documentkey=1fa399374f92030099f1b2718110c77e"/>
+</record_update>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">f69b9c544f1a030099f1b2718110c762</sp_column>
+        <sp_widget display_value="Tasker Tree View">53a690944fd6030099f1b2718110c702</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-03 19:14:52</sys_created_on>
+        <sys_id>28cbd8d04f1a030099f1b2718110c7a8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sp_instance_28cbd8d04f1a030099f1b2718110c7a8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-03 19:14:52</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=28cbd8d04f1a030099f1b2718110c7a8"/>
+</record_update>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($rootScope,$scope) {
+  var c = this;
+  $rootScope.$on('showIncidentDetails', function(event,data) {
+       $scope.showForm= data;
+		   
+		
+  
+  });
+
+  $rootScope.$on('customEvent', function(event,obj) {
+	//Elastic Search Demo - David J. Shilkret 
+var sd = $scope.showForm.shrtDesc;
+var queryTerm = sd;
+var numResults = 0;
+var Counter = 0;
+var queryURLBase="https://search-testdomain-y56yhnxcndddwuykob75fjvprq.us-east-1.es.amazonaws.com/enron/_search?pretty=&q=*" + queryTerm;
+		Counter = 0;
+	  $("#wellSection").empty();
+		runQuery(10,queryURLBase);
+  
+
+
+
+
+
+function runQuery(numResults, queryURL){
+
+	$.ajax({url: queryURL, method: "GET"}) 
+		.done(function(ElasticData) {
+
+			
+			console.log("------------------------------------")
+			console.log("URL: " + queryURL);
+			console.log("------------------------------------")
+
+			
+			console.log(ElasticData);
+			console.log("------------------------------------")
+
+			
+			for (var i=0; i<numResults; i++) {
+
+					
+					Counter++;
+
+					
+					var wellSection = $("<div>");
+					wellSection.addClass('well');
+					wellSection.attr('id', 'articleWell-' + Counter)
+					$('#wellSection').append(wellSection);
+
+					
+					if(ElasticData.hits.hits[i]._index != "null")
+					{
+						$("#articleWell-"+ Counter).append('<h3 class="articleHeadline"><span class="label label-primary">' + Counter + '</span><strong> Connector: MS Exchange  ' +  "</strong></h3>");
+						
+						
+						console.log(ElasticData.hits.hits[i]._source.mailbox);
+					}
+					
+					
+					if( ElasticData.hits.hits[i]._index && ElasticData.hits.hits[i].hasOwnProperty("original"))
+					{
+						$("#articleWell-"+ Counter).append('<h5>' + ElasticData.hits.hits[i]._index + "</h5>");
+
+						
+						console.log(elasticData.hits.hits[i]._source.mailbox);
+					}
+
+					
+					$("#articleWell-"+ Counter).append('<h5>Index: ' + ElasticData.hits.hits[i]._index + "</h5>");
+					$("#articleWell-"+ Counter).append('<h5>Mailbox: ' + ElasticData.hits.hits[i]._source.mailbox + "</h5>");
+					$("#articleWell-"+ Counter).append('<h5>From Email: ' + ElasticData.hits.hits[i]._source.headers.From + "</h5>");
+					$("#articleWell-"+ Counter).append('<h5>' + ElasticData.hits.hits[i]._source.body + "</h5>");
+					
+					console.log(ElasticData.hits.hits[i]._index);
+					console.log(ElasticData.hits.hits[i]._source.mailbox);
+					console.log(ElasticData.hits.hits[i]._source.headers.From);
+					console.log(ElasticData.hits.hits[i]._source.body);	
+			}
+		});
+
+}
+
+
+	
+	
+	$('#runSearch').on('click', function(){
+
+		
+		Counter = 0;
+
+	
+		$("#wellSection").empty();
+
+		
+		var searchTerm = "{{item.shrtDesc}}";
+		queryURL = queryURLBase + searchTerm;
+
+		
+		numResults = $("#numRecordsSelect").val();
+
+
+		
+		runQuery(numResults, queryURL);
+
+		
+		return false;
+	});	
+
+
+$('#clearAll').on('click', function(){
+	Counter = 0;
+	$("#wellSection").empty();
+	});
+
+})
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>results_v1</id>
+        <internal>false</internal>
+        <link/>
+        <name>Results_v1</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-15 21:27:30</sys_created_on>
+        <sys_id>903d2e044fe2030099f1b2718110c702</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Results_v1</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sp_widget_903d2e044fe2030099f1b2718110c702</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-15 21:27:30</sys_updated_on>
+        <template><![CDATA[<script> $("#keyword").hide();</script>
+<div class="row">
+		<div class="col-sm-12">
+		<br>
+     
+			
+			<div class="panel panel-primary">
+
+				
+				<div class="panel-heading">
+					<h3 class="panel-title"><strong><i class="fa fa-table"></i>Results</strong></h3>
+				</div>
+        <div ng-controller="Ctrl">
+        
+    		<input id="keyword" ng-bind="c.selectedIncident" type="text" value="{{showForm.shrtDesc}}" />        
+				</div>
+				
+				
+				<div class="panel-body" id="wellSection">
+         
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	<div class="row">
+		<div class="col-sm-12">
+	
+		</div>
+	</div>
+
+
+	
+
+<script src="https://code.jquery.com/jquery.js"></script>]]></template>
+    </sp_widget>
+</record_update>

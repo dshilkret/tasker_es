@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>Get Exchange Tasks - Tasker</name>
+        <run_as display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-11-16 16:45:11</run_start>
+        <run_time>1970-01-01 08:00:00</run_time>
+        <run_type>on_demand</run_type>
+        <script><![CDATA[
+
+//Call pre-configured Outbound REST Method
+var r = new sn_ws.RESTMessageV2('Get Exchange Tasks Dicover Tasker Proj', 'POST');  
+r.setRequestHeader('Accept','application/json');
+r.setRequestHeader('Content-Type','application/json');
+var response = r.execute();  
+var responseBody = response.getBody(); 
+var parsed = JSON.parse(responseBody);  
+//looping through Elasticsearch JSON response
+for (i = 0; i < parsed.hits.hits.length; i++) {  
+    var mailbox = parsed.hits.hits[i]._source.mailbox;  
+    var body = parsed.hits.hits[i]._source.body; 
+	//var subject = parsed.hits.hits[i]._source.headers.Subject; 
+	var id = parsed.hits.hits[i]._id;
+	
+	//Check for task number
+	//add mapped response values into ServiceNow via new glideRecord
+	var rec  = new GlideRecord('x_153465_discovert_route_task_instance'); 
+		rec.initialize();  
+		//rec.mailbox = mailbox;  
+		rec.short_description = body;  
+		//rec.subject = subject;
+		//rec.description = body;
+		rec.correlation_id = id;
+		rec.active = false;
+		rec.insert();
+		
+} 
+
+]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-16 16:50:51</sys_created_on>
+        <sys_id>6a26ba944faa030099f1b2718110c781</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Get Exchange Tasks - Tasker</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sysauto_script_6a26ba944faa030099f1b2718110c781</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-16 20:31:57</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

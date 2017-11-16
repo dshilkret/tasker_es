@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <before>false</before>
+        <description/>
+        <flush_cache>false</flush_cache>
+        <name>GetExchangeTaskFixScript</name>
+        <run_once>true</run_once>
+        <script><![CDATA[//JSON Request Body
+var data = {
+   "query" : {
+      "constant_score" : { 
+         "filter" : {
+            "bool" : {
+              "must" : {
+                  "match": {
+                    "mailbox": "hernandez-j"
+					 }  
+				  },
+				  "should" : {
+					  "match": {
+						"body": "TASK0022976"
+					  }  
+				  }            
+			   }
+			 }
+		  }
+	   }
+	};
+//Call pre-configured Outbound REST Method
+var r = new sn_ws.RESTMessageV2('Elasticsearch Service', 'POST');  
+r.setRequestHeader('Accept','application/json');
+r.setRequestHeader('Content-Type','application/json');
+var response = r.execute();  
+var responseBody = response.getBody(); 
+var parsed = JSON.parse(responseBody);  
+//looping through Elasticsearch JSON response
+for (i = 0; i < parsed.hits.hits.length; i++) {  
+    var mailbox = parsed.hits.hits[i]._source.mailbox;  
+    var body = parsed.hits.hits[i]._source.body; 
+	var subject = parsed.hits.hits[i]._source.headers.Subject; 
+	var id = parsed.hits.hits[i]._id;
+	var gr  = new GlideRecord('x_150952_elastic_s_ds_task_logs_v2'); 
+		gr.addEncodedQuery('number!=subject');
+		gr.description = subject;
+		gr.insert();
+	//Check for task number
+	//add mapped response values into ServiceNow via new glideRecord
+	//var rec  = new GlideRecord('x_150952_elastic_s_ds_task_logs_v2'); 
+		//rec.initialize();  
+		//rec.mailbox = mailbox;  
+		//rec.short_description = body;  
+		//rec.subject = subject;
+		//rec.description = body;
+		//rec.correlation_id = id;
+		//rec.insert();
+		
+} 
+
+]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-09 14:53:54</sys_created_on>
+        <sys_id>9e795a8a4fde030099f1b2718110c77c</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GetExchangeTaskFixScript</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sys_script_fix_9e795a8a4fde030099f1b2718110c77c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-09 15:17:10</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>

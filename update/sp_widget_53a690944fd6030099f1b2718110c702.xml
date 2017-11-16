@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul ul {
+    margin: 0 0 0 30px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>tasker_tree_view</id>
+        <internal>false</internal>
+        <link/>
+        <name>Tasker Tree View</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[// form functionality - URL parameter driven
+(function($sp, input, data, options, gs) {
+  /* "use strict"; -linter issues */
+  // populate the 'data' variable
+	data.attachmentUploadSuccessMsg = gs.getMessage("Attachment upload was successful");
+	data.recordAddedMsg = gs.getMessage("Record Added");
+	data.updatedMsg = gs.getMessage("updated_uppercase");
+	data.exportPDFMsg = gs.getMessage("Export to PDF");
+	data.exportPDFLandMsg = gs.getMessage("Export to PDF (landscape)");
+	data.addAttachmentMsg = gs.getMessage("Add an attachment");
+	data.largeAttachmentMsg = gs.getMessage("Attached files must be smaller than {0} - please try again", "24MB");
+	data.attachmentSuccessMsg = gs.getMessage("Attachment successfully uploaded");
+	
+	//data.isAdmin = gs.hasRightsTo('sp/configure.all/execute', null);
+	data.emptyStateTemplate = options.empty_state_template;
+	data.disableUIActions = options.disableUIActions === "true";
+	data.hideRelatedLists = options.hideRelatedLists || false;
+
+	if (input) {
+		data.table = input.table;
+		data.sys_id = input.sys_id;
+		data.view = input.view;
+		var result = {};
+		if (input._fields) {
+			result = $sp.saveRecord(input.table, input.sys_id, input._fields);
+			data.sys_id = result.sys_id;
+		}
+
+		if (input.sys_id == '-1')
+			data.isNewRecord = true;
+	} else {
+		data.table = options.table || $sp.getParameter("t") || $sp.getParameter("table") || $sp.getParameter("sl_table");
+		data.sys_id = options.sys_id || $sp.getParameter("sys_id") || $sp.getParameter("sl_sys_id");
+		data.view = options.view || $sp.getParameter("v") || $sp.getParameter("view"); // no default
+	}
+
+	data.query = $sp.getParameter("query") || options.query;
+	data.f = {};
+	if (!data.table)
+		return;
+	
+	// Form widget is not a supported way to view an attachment
+	if (data.table == "sys_attachment") {
+		data.tableUnsupported = true;
+		return;
+	}
+
+	if (!GlideTableDescriptor.isValid(data.table))
+		return;
+
+	if (!data.sys_id)
+		return;
+
+	var rec = $sp.getRecord(data.table, data.sys_id);
+	data.isValid = rec.isValid() || data.sys_id == "-1";
+	if (!data.isValid)
+		return;
+
+	data.table = rec.getRecordClassName();
+	data.tableHierarchy = GlideDBObjectManager.getTables(data.table).toArray().join();
+	data.canWrite = rec.canWrite();
+	data.canAttach = data.canWrite && gs.hasRole(gs.getProperty('glide.attachment.role')) && !GlideTableDescriptor.get(data.table).getED().getBooleanAttribute("no_attachment");
+	data.f = $sp.getForm(data.table, data.sys_id, data.query, data.view);
+
+	// Activity formatter is hardcoded to set specific options
+	for (var f in data.f._formatters) {
+		var fm = data.f._formatters[f];
+		if (fm.formatter == "activity.xml") {
+			fm.hardcoded = true;
+			fm.widgetInstance = $sp.getWidget('widget-ticket-conversation',
+																{table: data.table,
+																 sys_id: data.sys_id,
+																 includeExtended: true,
+																 title: "${Activity}",
+																 use_dynamic_placeholder: true,
+																 btnLabel: "${Post}"});
+		} else
+			fm.widgetInstance = $sp.getWidget(fm.widget, data);
+	}
+})($sp, input, data, options, gs);
+
+// reference keywords retrieval
+
+(function(sp, input, data, options, gs) {
+ 
+    data.dcid = [];
+   
+    var gr  = new GlideRecord('x_153465_discover_discover_content_integration_details');
+		//gr.addQuery('from_table_name', data.table);
+				
+				
+    gr.query();   //filter by discover_content_integration_context
+   
+				while(gr.next()){
+						item = {};
+						item.keyphrase = gr.getDisplayValue('discover_keyword_or_phrase');
+				    item.context = gr.getDisplayValue('discover_content_integration_context');
+					  item.fromtablename = gr.getDisplayValue('from_table_name');
+					  item.fromfieldname = gr.getDisplayValue('from_field_name');
+					 // item.isKeyword = gr.getDisplayValue('');
+					  item.sysid = gr.getValue('sys_id');
+					  var tbl = data.table;
+					  
+						
+					  
+					  var gr2 =new GlideRecord(tbl);
+						gr2.addQuery('sys_id', data.sys_id);
+						gr2.query();
+					  while(gr2.next()){
+							item.keyword = gr2.getDisplayValue(item.fromfieldname);
+							
+						}
+						data.dcid.push(item);
+				
+						
+				}
+
+})($sp, input, data, options, gs);
+
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-11-03 18:52:40</sys_created_on>
+        <sys_id>53a690944fd6030099f1b2718110c702</sys_id>
+        <sys_mod_count>19</sys_mod_count>
+        <sys_name>Tasker Tree View</sys_name>
+        <sys_package display_value="Elastic ServiceNow Service" source="x_150952_elastic_s">12102eab4fca030099f1b2718110c7c5</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Elastic ServiceNow Service">12102eab4fca030099f1b2718110c7c5</sys_scope>
+        <sys_update_name>sp_widget_53a690944fd6030099f1b2718110c702</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-11-03 19:18:09</sys_updated_on>
+        <template><![CDATA[<ul id="root"></ul>
+<script>
+  
+  var data = {
+    id: 0,
+    title: {{item.keyphrase}},
+    children: [{
+        id: 1,
+        title: "Option 1",
+        children: [{
+            id: 11,
+            title: "Option 11",
+            children: [{
+                id: 111,
+                title: "Option 111"
+            }, {
+                id: 112,
+                title: "Option 112"
+            }]
+        }, {
+            id: 12,
+            title: "Option 12"
+        }]
+    }, {
+        id: 2,
+        title: "Option 2",
+        children: [{
+            id: 21,
+            title: "Option 21"
+        }, {
+            id: 22,
+            title: "Option 22"
+        }]
+    }, {
+        id: 3,
+        title: "Option 3",
+        children: [{
+            id: 0,
+            title: "Option 31"
+        }, {
+            id: 0,
+            title: "Option 32"
+        }]
+    }]
+};
+
+function addItem(parentUL, branch) {
+    for (var key in branch.children) {
+        var item = branch.children[key];
+        $item = $('<li>', {
+            id: "item" + item.id
+        });
+        $item.append($('<input>', {
+            type: "checkbox",
+            id: "item" + item.id,
+            name: "item" + item.id
+        }));
+        $item.append($('<label>', {
+            for: "item" + item.id,
+            text: item.title
+        }));
+        parentUL.append($item);
+        if (item.children) {
+            var $ul = $('<ul>', {
+                style: 'display: none'
+            }).appendTo($item);
+            addItem($ul, item);
+        }
+    }
+}
+
+$(function () {
+    addItem($('#root'), data);
+    $(':checkbox').change(function () {
+        $(this).closest('li').children('ul').slideToggle();
+    });
+    $('label').click(function(){
+        $(this).closest('li').find(':checkbox').trigger('click');
+    });
+});
+</script>
+
+]]></template>
+    </sp_widget>
+</record_update>

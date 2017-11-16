@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="task" label="DS Task Logs v2" max_length="40" name="x_150952_elastic_s_ds_task_logs_v2" sizeclass="12" type="collection">
+        <element label="Mailbox" max_length="500" name="mailbox" type="string"/>
+        <element label="Subject" max_length="1500" name="subject" type="string"/>
+    </element>
+</database>
